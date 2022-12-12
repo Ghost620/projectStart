@@ -1,0 +1,27 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<label for="large" class="block mb-2 text-base font-medium text-gray-900 dark:text-white">Select Data Source</label>
+<select id="large" class="block w-1/2 px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  <option selected>Select Data Source</option>
+  <option value="BLS">BLS</option>
+  <option value="CNS">Census.gov</option>
+  <option value="FRED">FRED</option>
+  <option value="WB">World Bank</option>
+  <option value="INE">INE</option>
+  <option value="POP">Population</option>
+  <option value="KGL">Kaggle</option>
+  <option value="QND">Quandl</option>
+</select>
+
+<label for="large" class="block mb-2 text-base font-medium text-gray-900 dark:text-white">Select Activity</label>
+<select id="large" class="block w-1/2 px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  <option selected>Select Activity</option>
+  <option value="VALL">View List of Existing Tables</option>
+  <option value="VMT">Explore Specific Meta Table</option>
+  <option value="VDT">Explore Specific Data Table</option>
+</select>
+
+
+{% endblock content %}

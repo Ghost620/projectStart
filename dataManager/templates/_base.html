@@ -1,0 +1,53 @@
+<!-- templates/_base.html -->
+
+{% load compress %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Source Manager</title>
+
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    {% endcompress %}
+    <script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js"></script>
+    <!-- <script src="base.js"></script> -->
+    <script>
+      // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+      if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+      } else {
+          document.documentElement.classList.remove('dark')
+      }
+    </script>
+
+</head>
+
+<body class="dark">
+
+    <!-- Add this -->
+
+    <nav class="bg-white px-2 sm:px-4 py-2.5 dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+      <div class="container flex flex-wrap items-center mx-auto">
+        <a href="" class="flex items-center">
+          <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo">
+          <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Data Management</span>
+        </a>
+      </div>
+    </nav>
+    
+    <!-- End of new HTML -->
+
+    <div class="container mx-auto mt-24 flex flex-col items-center">
+      {% block content %}
+      {% endblock content %}
+    </div>
+
+</body>
+
+</html>
