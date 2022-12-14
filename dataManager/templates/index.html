@@ -1,52 +1,58 @@
 {% extends "_base.html" %}
 
 {% block content %}
-<select id="data_source" class="block mb-10 mt-6 w-1/2 px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-  <option selected disabled>Select Data Source</option>
-  <option value="BLS">BLS</option>
-  <option value="CNS">Census.gov</option>
-  <option value="FRED">FRED</option>
-  <option value="WB">World Bank</option>
-  <option value="INE">INE</option>
-  <option value="POP">Population</option>
-  <option value="KGL">Kaggle</option>
-  <option value="QND">Quandl</option>
-</select>
+<form class="w-full flex flex-col items-center" method="post" action="meta/">
 
-<select id="activity" class="block mb-10 w-1/2 px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-  <option selected disabled>Select Activity</option>
-  <option value="VALL">View List of Downloaded Tables</option>
-  <option value="VMT">Explore Specific Meta Table</option>
-  <option value="VDT">Explore Specific Data Table</option>
-</select>
+  {% csrf_token %}
 
-<select id="view_mode" class="block mb-10 w-1/2 px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-  <option selected disabled>Select View Mode</option>
-  <option value="VALL">View List of all existing meta tables</option>
-  <option value="VMT">View List of all existing data tables</option>
-</select>
+  <select id="data_source" name="data_source" class="block mb-10 mt-6 w-1/2 px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    <option selected disabled>Select Data Source</option>
+    <option value="BLS">BLS</option>
+    <option value="CNS">Census.gov</option>
+    <option value="FRED">FRED</option>
+    <option value="WB">World Bank</option>
+    <option value="INE">INE</option>
+    <option value="POP">Population</option>
+    <option value="KGL">Kaggle</option>
+    <option value="QND">Quandl</option>
+  </select>
+  
+  <select id="activity" name="activity" onchange="choices()" class="block mb-10 w-1/2 px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    <option selected disabled>Select Activity</option>
+    <option value="VALL">View List of Downloaded Tables</option>
+    <option value="VMT">Explore Specific Meta Table</option>
+    <option value="VDT">Explore Specific Data Table</option>
+  </select>
+  
+  <select disabled id="view_mode" name="view_mode" class="disabled block mb-10 w-1/2 px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    <option selected disabled>Select View Mode</option>
+    <option value="VALL">View List of all existing meta tables</option>
+    <option value="VMT">View List of all existing data tables</option>
+  </select>
+  
+  <select disabled id="select_meta_table" name="select_meta_table" class="block mb-10 w-1/2 px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    <option selected disabled>Select Meta Table</option>
+    <option value="VALL">Meta Table 1</option>
+    <option value="VMT">Meta Table 2</option>
+    <option value="VDT">Meta Table 3</option>
+  </select>
+  
+  <select disabled id="update" name="update" class="block mb-10 w-1/2 px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    <option selected disabled>Download/Update Data</option>
+    <option value="SERIES">Series</option>
+    <option value="TABLE">Table</option>
+  </select>
+  
+  <div class="mb-10 w-1/2">
+    <input disabled type="text" id="table_id" name="table_id" placeholder="Enter Table ID" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  </div>
+  
+  <div class="mb-10 w-1/2">
+    <input disabled type="text" id="table_name" name="table_name" placeholder="Enter Table Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  </div>
+  
+  <button disabled type="submit" id="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-6 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
 
-<select id="select_meta_table" class="block mb-10 w-1/2 px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-  <option selected disabled>Select Meta Table</option>
-  <option value="VALL">Meta Table 1</option>
-  <option value="VMT">Meta Table 2</option>
-  <option value="VDT">Meta Table 3</option>
-</select>
-
-<select id="select_meta_table" class="block mb-10 w-1/2 px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-  <option selected disabled>Download/Update Data</option>
-  <option value="SERIES">Series</option>
-  <option value="TABLE">Table</option>
-</select>
-
-<div class="mb-10 w-1/2">
-  <input type="text" id="table_id" placeholder="Enter Table ID" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-</div>
-
-<div class="mb-10 w-1/2">
-  <input type="text" id="table_name" placeholder="Enter Table Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-</div>
-
-<button type="button" id="submit" onclick="submit()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-6 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
+</form>
 
 {% endblock content %}
