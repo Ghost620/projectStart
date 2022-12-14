@@ -917,6 +917,10 @@ input[type="range"]::-ms-fill-lower {
   position: relative;
 }
 
+.sticky {
+  position: sticky;
+}
+
 .top-0 {
   top: 0px;
 }
