@@ -11,7 +11,6 @@ def show_meta_table(request):
         json_records = df.reset_index().to_json(orient ='records')
         data = []
         data = json.loads(json_records)
-        context = {'data': data}
+        context = {'data': data, 'columns': list(data[0].keys())[1:] }
     
         return render(request, 'meta.html', context)
-        #return render(request, 'meta.html', {'table_name': request.POST['data_source'], 'context': context})
