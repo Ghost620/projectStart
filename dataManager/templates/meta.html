@@ -14,14 +14,17 @@
     {% endfor %}
     
     {{ data|json_script:"mydata" }}
+    {{ table_names|json_script:"table_name" }}
     <script>
         
         const mydata = JSON.parse(document.getElementById('mydata').textContent);
+        const mytablesNames = JSON.parse(document.getElementById('table_name').textContent);
 
         for (var i=0; i<mydata.length; i++){
             document.getElementById(`table${i+1}`).innerHTML = mydata[i]
+            document.getElementsByClassName('heads')[i].innerHTML = mytablesNames[i]
         }
-        
+
     </script>
     {% endif %}
 
