@@ -5,8 +5,8 @@
 
   {% csrf_token %}
 
-  <select id="data_source" name="data_source" class="block mb-10 mt-6 w-1/2 px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-    <option selected disabled>Select Data Source</option>
+  <select id="data_source" name="data_source" onchange="choices()" class="block mb-10 mt-6 w-1/2 px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    <option selected disabled value="">Select Data Source</option>
     <option value="BLS">BLS</option>
     <option value="CENSUS">Census.gov</option>
     <option value="FRED">FRED</option>
@@ -25,7 +25,7 @@
   </select>
   
   <select disabled id="view_mode" name="view_mode" class="disabled block mb-10 w-1/2 px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-    <option selected disabled>Select View Mode</option>
+    <option selected disabled value="">Select View Mode</option>
     <option value="VALMT">View List of all existing meta tables</option>
     <option value="VALDT">View List of all existing data tables</option>
   </select>
