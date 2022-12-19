@@ -7,6 +7,9 @@ def index(request):
 def show_meta_table(request):
     if request.method == 'POST':
 
-        all_tables, table_names = fetchWorldBankDB()
-        context = {'table_name': request.POST['data_source'], 'data': all_tables, 'table_names': table_names }
-        return render(request, 'meta.html', context)
+        if ( request.POST['data_source'] and request.POST['activity'] == 'VALL' and request.POST['view_mode'] == 'VALMT' ):
+            all_tables, table_names = fetchWorldBankDB()
+            context = { 'table_name': request.POST['data_source'], 'data': all_tables, 'table_names': table_names }
+            return render(request, 'meta.html', context)
+        # else:
+        #     return

@@ -11,7 +11,7 @@ port=int(os.getenv('DB_PORT'))
 host=os.getenv('DB_HOST')
 
 def dict2htmltable(data):
-    html = '<thead class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">' + '<tr>' + '<th colspan="7" class="heads py-3 px-6 font-medium text-white text-center"> </th>' + '</tr>' + '<tr>' + ''.join('<th scope="col" class="py-3 px-6 text-center">' + x + '</th>' for x in data[0].keys()) + '</tr>' + '<tbody>'
+    html = '<thead class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">' + '<tr>' + '<th colspan="3" class="heads py-3 px-6 font-medium text-white text-center"> </th>' + '</tr>' + '<tr>' + ''.join('<th scope="col" class="py-3 px-6 text-center">' + x + '</th>' for x in data[0].keys()) + '</tr>' + '<tbody>'
     
     for d in data:
         html += '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">' + ''.join('<td class="py-4 px-6 font-medium text-white text-center">' + f'{x}' + '</td>' for x in d.values()) + '</tr>'
